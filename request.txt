@@ -1,0 +1,91 @@
+1.
+    db.restaurants.find(
+        {cuisine: "Italian", "grades.score" : {$gte : 10}},
+        {_id : 0, name : 1, "grades.score" : 1, "address.coord" : 1,})
+        .sort({"name" : -1}
+    ;
+
+2.
+    db.restaurants.find(
+            {"grades.grade" : "A",
+            "grades.score" : {$gte : 20}
+            },
+            {_id : 0, name : 1}
+        )
+        .sort({"name" : -1}
+    );
+    
+    db.restaurants.find(
+        {"grades.grade" : "A",
+        "grades.score" : {$gte : 20}
+    },
+    {_id : 0, name : 1}
+    ).count();
+
+3.
+    db.restaurants.distinct(
+        "borough"
+    );
+
+4.
+    db.restaurants.distinct(
+        "cuisine", {borough : "Bronx"}
+    );
+
+5.
+    db.restaurants.find(
+        {borough: "Bronx",
+        grades: {$size :4}
+        },
+        {_id : 0, name : 1, "grades.grade" : 1}
+    );
+
+6.
+    db.restaurants.find(
+        {"grades.grade" : {$in : ["A", "B"]},
+        borough : "Bronx"},
+        {_id : 0, name : 1, "grades.grade" : 1, borough : 1}
+    );
+
+7.
+    db.restaurants.find(
+        {"grades.0.grade" : {$in : ["A", "B"]},
+        borough : "Bronx"},
+        {_id : 0, name : 1, "grades.grade" : {$slice : 1}, borough : 1}
+    );
+
+8.
+    db.restaurants.find(
+        {name : /[cC]offee/},
+        {_id : 0, name : 1}
+    );
+
+9.
+    db.restaurants.find(
+        {name : /[cC]offee/,
+        borough : "Bronx"},
+        {_id : 0, name : 1, borough : 1}
+    );
+
+10.
+    db.restaurants.find(
+        {$and : [ {name : {$in : [/[cC]offee/ , /[rR]estaurant/]}}, {name : {$ne : "Starbucks"}}]
+        },
+        {_id : 0, name : 1}
+    );
+
+11.
+    db.restaurants.find(
+        {name : /[cC]offee/,
+        borough : {$in : ["Bronx", "Brooklyn"]},
+        grades : {$size : 4}
+        },
+        {_id : 0, name : 1, borough : 1, "grades.grade" : 1}
+    );
+
+12.
+    db.restaurants.find(
+        { name : /^[aAeEiIoOuUyY].*[aAeEiIoOuUyY]$/ },
+        {_id : 0, name : 1}
+    );
+    

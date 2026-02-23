@@ -1,0 +1,41 @@
+1. 
+    let count=0;
+    db.restaurants.find({borough : "Brooklyn"}).forEach((doc) => count++);
+    console.log(count);
+    
+        ||
+        
+    db.restaurants.find({borough : "Brooklyn"}).count();
+
+2.
+    db.restaurants.insertOne({
+    
+        address : {
+            building : "165",
+            street : "Farragut Road"
+        },
+        
+        borough : "Brooklyn",
+        
+        cuisine : "Hamburgers",
+        
+        grades : [
+            {
+                date : "03/04/2015",
+                grade : "A+",
+                score : "15"
+            },
+            {
+                date : "06/06/2021",
+                grade : "A++",
+                score : "18"
+            },
+        ],
+        
+        name : "Freshly Burger",
+        
+        restaurant_id : "45872563",
+    });
+
+3.
+    db.restaurants.find({"grades.score" : 20}, {_id : 0, name : 1});
